@@ -1,29 +1,28 @@
-# Usando React Navigation
+# Usando React Navigation - Stack
 
-Estou estudando mobile com React Native e a intenção é ver os recursos separadamente. Já tenho um background de React Web. Então, pulei a parte de fundamentos.
+Inicialmente, tive uns probleminhas pra mexer nessa dependência. Mas vai na minha, q vc passa de ano!
 
-Estou seguindo a documentação para entender como funciona o React Navigation.
+- Adicione a dependência ``react-navigation`` completa
+- Adicione as dependências ``react-native-gesture-handler`` e ``react-native-reanimated``
+- Localize o arquivo `android/app/src/main/java/com/usingnavigation/MainActivity.java` e adicione as seguintes linhas após o `import com.facebook.react.ReactActivity;`:
+  
+  ```
+  import com.facebook.react.ReactActivityDelegate;
+  import com.facebook.react.ReactRootView;
+  import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
+  ```
 
-## Instalação
+- Ainda no mesmo arquivo, adicione o seguinte método à classe `ReactActivity`:
 
-Para começar, com seu projeto React Native já configurado, vc pode instalar o Navigation da seguinte forma:
+  ```
+    @Override
+    protected ReactActivityDelegate createReactActivityDelegate() {
+      return new ReactActivityDelegate(this, getMainComponentName()) {
+        @Override
+        protected ReactRootView createRootView() {
+         return new RNGestureHandlerEnabledRootView(MainActivity.this);
+        }
+      };
+    }
 
-Para NPMers:
-
-```
-npm install @react-navigation/native
-```
-
-Para Yarners:
-
-```
-yarn add @react-navigation/native
-```
-
-## Para rodar o app no ios
-
-Para que isso funcione, você precisa estar trabalhando em um Mac. Rode o comando:
-
-```
-npx pod-install ios
-```
+  ```
